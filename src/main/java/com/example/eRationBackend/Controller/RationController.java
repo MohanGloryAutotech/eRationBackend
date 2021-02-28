@@ -3,6 +3,7 @@ package com.example.eRationBackend.Controller;
 import com.example.eRationBackend.ControllerConfig.ControllerConfig;
 import com.example.eRationBackend.generalResponce.GeneralResponse;
 import com.example.eRationBackend.model.customer.request.AddRationCard;
+import com.example.eRationBackend.model.otpVerification.OtpVerification;
 import com.example.eRationBackend.serviceImpl.RationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -91,6 +92,25 @@ public class RationController extends ControllerConfig {
 
             List<AddRationCard> rationCard = rationService.getAlRationCard();
             result =new GeneralResponse<>(rationCard,"data fetched successfully",true,System.currentTimeMillis(), HttpStatus.FOUND);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            result =new GeneralResponse<>(null,e.getMessage(),false,System.currentTimeMillis(), HttpStatus.BAD_REQUEST);
+        }
+
+        return result;
+
+    }
+
+    @GetMapping("/ration/get/getOtp/{ratioNo}")
+    public GeneralResponse<OtpVerification> getOtpForRationCard(@PathVariable(name="ratioNo") String ratioNo)
+    {
+        GeneralResponse<OtpVerification> result;
+
+        try {
+
+            OtpVerification rationCard = rationService.getOtpForRationCardNo(ratioNo);
+            result =new GeneralResponse<>(rationCard,"OTP send successfully",true,System.currentTimeMillis(), HttpStatus.FOUND);
         }catch (Exception e)
         {
             e.printStackTrace();
