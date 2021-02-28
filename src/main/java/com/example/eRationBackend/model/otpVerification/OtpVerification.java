@@ -13,6 +13,6 @@ public class OtpVerification {
     String otp;
 
     public OtpVerification(String nextInt) {
-        otp=nextInt;
+        this.otp=nextInt;
     }
 }

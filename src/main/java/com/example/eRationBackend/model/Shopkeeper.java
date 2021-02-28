@@ -5,10 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,7 +18,8 @@ public class Shopkeeper {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
     String name;
-    Boolean active;
+    Boolean active;//license status
+    Boolean open;//open store or not
     String address;
     String area;
     String subArea;
@@ -30,5 +29,13 @@ public class Shopkeeper {
     String username;
     String password;
     String contact;
+    Date createdDate;
+
+    @PrePersist
+    public void create()
+    {
+        this.createdDate=new Date(System.currentTimeMillis());
+    }
+
 
 }
