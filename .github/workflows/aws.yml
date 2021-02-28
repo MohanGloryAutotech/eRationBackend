@@ -2,7 +2,7 @@ name: Java CI NEW EC2
 
 on:
   push:
-    branches: [ development ]
+    branches: [ master ]
 
 jobs:
   build-deploy-run:
