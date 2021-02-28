@@ -2,6 +2,7 @@ package com.example.eRationBackend.serviceImpl;
 
 import com.example.eRationBackend.dao.customer.CustomerDao;
 import com.example.eRationBackend.dao.customer.MemberDao;
+import com.example.eRationBackend.model.Shopkeeper;
 import com.example.eRationBackend.model.customer.Customer;
 import com.example.eRationBackend.model.customer.Member;
 import com.example.eRationBackend.model.customer.request.AddRationCard;
@@ -18,6 +19,9 @@ import java.util.Random;
 public class RationServiceImpl {
 
     @Autowired
+    ShopkeepeServiceImpl shopkeepeService;
+
+    @Autowired
     CustomerDao customerDao;
 
     @Autowired
@@ -31,6 +35,11 @@ public class RationServiceImpl {
 
             if(rationExist!=null)
                 throw new Exception("already ration number exist");
+
+            //shopkeeper exist ??
+            Shopkeeper shopkeeperExist =shopkeepeService.getShopkeeperById(addRationCard.getCustomer().getShopId());
+            if(shopkeeperExist==null)
+                throw new Exception("no shopkeeper found");
 
             Customer customer = new Customer(addRationCard.getCustomer());
             Customer x = customerDao.save(customer);
