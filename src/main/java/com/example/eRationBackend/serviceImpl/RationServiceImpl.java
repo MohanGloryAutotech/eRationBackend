@@ -5,11 +5,14 @@ import com.example.eRationBackend.dao.customer.MemberDao;
 import com.example.eRationBackend.model.customer.Customer;
 import com.example.eRationBackend.model.customer.Member;
 import com.example.eRationBackend.model.customer.request.AddRationCard;
+import com.example.eRationBackend.model.otpVerification.OtpVerification;
+import com.example.eRationBackend.service.SendOtpMail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Service("rationServiceImpl")
 public class RationServiceImpl {
@@ -84,5 +87,28 @@ public class RationServiceImpl {
         if(list.isEmpty())
             throw new Exception("no record found");
         return list;
+    }
+
+    public OtpVerification getOtpForRationCardNo(String ratioNo) throws Exception {
+        Customer customerExist = customerDao.getRationByNumber(Long.parseLong(ratioNo));
+
+        if(customerExist==null)
+            throw new Exception("no customer found");
+
+        Random rand =new Random();
+        String id = String.format("%04d", rand.nextInt(10000));
+        do {
+            //to generate the positive number
+            id = String.format("%04d", rand.nextInt(10000));
+        }while (Long.parseLong(id)<0);
+
+        //send to mail as well
+        SendOtpMail sendOtpMail = new SendOtpMail(customerExist.getEmail(),"Otp from the Eration","Otp for ration verifiation is:"+id);
+        sendOtpMail.sendMail();
+
+
+        //otp genrated
+        OtpVerification otpVerification =new OtpVerification(id);
+        return otpVerification;
     }
 }
