@@ -28,4 +28,7 @@ public interface ShopkeeperDao extends JpaRepository<Shopkeeper,Long> {
     @Transactional
     @Query("update Shopkeeper s set s.open=:status where s.id=:id")
     void updateShopStatusById(Long id, Boolean status);
+
+    @Query("select s from Shopkeeper s ")
+    List<Shopkeeper> getAllShopkeeper();
 }

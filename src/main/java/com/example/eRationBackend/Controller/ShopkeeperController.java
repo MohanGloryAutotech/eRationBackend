@@ -92,6 +92,31 @@ public class ShopkeeperController extends ControllerConfig {
         return result;
 
     }
+
+    @GetMapping("/shopkeeper/get/all/")
+    public GeneralResponse<List<Shopkeeper>> getAllShopkeeper()
+    {
+        GeneralResponse<List<Shopkeeper>> result;
+
+        try {
+
+            List<Shopkeeper> shopkeeper = shopkeepeService.getAllShopkeeper();
+            if(!shopkeeper.isEmpty())
+            {
+                result =new GeneralResponse<>(shopkeeper,"data fetchd successfully",true,System.currentTimeMillis(), HttpStatus.FOUND);
+            }else {
+                result =new GeneralResponse<>(null,"data not found",false,System.currentTimeMillis(), HttpStatus.NOT_FOUND);
+            }
+
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            result =new GeneralResponse<>(null,e.getMessage(),false,System.currentTimeMillis(), HttpStatus.BAD_REQUEST);
+        }
+
+        return result;
+
+    }
     @GetMapping("/shopkeeper/get/getByStateId/{id}")
     public GeneralResponse<List<Shopkeeper>> getShopkeeperByStateId(@PathVariable(name = "id")Long id)
     {
