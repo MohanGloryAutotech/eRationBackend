@@ -62,4 +62,8 @@ public class ShopkeepeServiceImpl {
         shopkeeperDao.updateShopStatusById(id,status);
 
     }
+
+    public List<Shopkeeper> getAllShopkeeper() {
+        return shopkeeperDao.getAllShopkeeper();
+    }
 }
