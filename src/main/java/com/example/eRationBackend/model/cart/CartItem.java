@@ -1,5 +1,6 @@
-package com.example.eRationBackend.model.customer;
+package com.example.eRationBackend.model.cart;
 
+import com.example.eRationBackend.model.cart.request.ProductList;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,20 +10,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-public class CartItems {
+public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
-    Long cartId;
-    Long pid;
-    Long qty;
-    Date date;
+    Long controlId;
+    Long pId;
+    Double qty;
 
+    public CartItem(ProductList productList) {
+        this.pId=productList.getPId();
+        this.qty = productList.getQty();
+    }
 }
