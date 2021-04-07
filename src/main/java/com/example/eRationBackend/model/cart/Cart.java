@@ -19,7 +19,7 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
     Long controlId;
-    String type=CartType.customer.toString();
+    String type=CartType.shop.toString();
     Date createdDate;
     Boolean status=false;
 
