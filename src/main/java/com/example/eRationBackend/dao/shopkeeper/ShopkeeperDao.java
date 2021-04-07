@@ -31,4 +31,7 @@ public interface ShopkeeperDao extends JpaRepository<Shopkeeper,Long> {
 
     @Query("select s from Shopkeeper s ")
     List<Shopkeeper> getAllShopkeeper();
+
+    @Query("select x from Shopkeeper x where x.id=:shopId AND x.cityId=:cityId")
+    Shopkeeper getShopkeeperByCityIdAndShopId(Long cityId, Long shopId);
 }
