@@ -12,4 +12,7 @@ public interface OrderMastDao extends JpaRepository<OrderMast,Long> {
 
     @Query("select x from OrderMast x where x.id=:id")
     OrderMast getOrderById(Long id);
+
+    @Query("select x from OrderMast x ")
+    List<OrderMast> getAllOrder();
 }

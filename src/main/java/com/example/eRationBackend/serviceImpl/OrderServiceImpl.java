@@ -9,6 +9,7 @@ import com.example.eRationBackend.model.customer.Customer;
 import com.example.eRationBackend.model.order.OrderData;
 import com.example.eRationBackend.model.order.OrderMast;
 import com.example.eRationBackend.model.order.request.AddOrder;
+import com.example.eRationBackend.model.product.Product;
 import com.example.eRationBackend.model.product.ShopkeeperProduct;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,7 @@ public class OrderServiceImpl {
 
         for(AddOrder addOrder:record)
         {
+            Product product = productService.getProductById(addOrder.getPId());
             ShopkeeperProduct shopkeeperProductExist = shopProductDao.getProductByShopAndProdctId(addOrder.getPId(),shopkeeper.getId());
             if(shopkeeperProductExist==null)
                 continue;
@@ -62,6 +64,7 @@ public class OrderServiceImpl {
 
             //create order data list
             OrderData orderData = new OrderData(addOrder);
+            orderData.setImg(product.getImg());
             orderDataList.add(orderData);
 
 
@@ -88,5 +91,9 @@ public class OrderServiceImpl {
 
     public OrderMast getOrderByid(Long id) {
         return orderMastDao.getOrderById(id);
+    }
+
+    public List<OrderMast> getAllOrder() {
+        return orderMastDao.getAllOrder();
     }
 }

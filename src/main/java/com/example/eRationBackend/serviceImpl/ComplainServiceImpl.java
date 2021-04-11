@@ -68,4 +68,8 @@ public class ComplainServiceImpl {
         complaintDao.updateStatusById(id,status);
 
     }
+
+    public List<ComplainResponse> getAllComplaint() {
+        return complaintDao.getAllComplaintResponse();
+    }
 }
