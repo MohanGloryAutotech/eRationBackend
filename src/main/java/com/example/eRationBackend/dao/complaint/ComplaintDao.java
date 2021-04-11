@@ -23,4 +23,7 @@ public interface ComplaintDao extends JpaRepository<Complaint,Long> {
     @Transactional
     @Query("update Complaint x set x.status=:status where x.id=:id")
     void updateStatusById(Long id, Boolean status);
+
+    @Query("select new com.example.eRationBackend.model.complaint.ComplainResponse(c,(select e.name from Employee e where e.id=c.empId)) from Complaint c")
+    List<ComplainResponse> getAllComplaintResponse();
 }

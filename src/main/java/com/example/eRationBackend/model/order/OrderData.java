@@ -24,6 +24,7 @@ public class OrderData {
     Long pId;
     Double qty;
 
+
     public OrderData(AddOrder addOrder) {
         this.pId=addOrder.getPId();
         this.qty=addOrder.getQty();

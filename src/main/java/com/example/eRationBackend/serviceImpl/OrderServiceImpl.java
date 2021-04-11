@@ -9,6 +9,9 @@ import com.example.eRationBackend.model.customer.Customer;
 import com.example.eRationBackend.model.order.OrderData;
 import com.example.eRationBackend.model.order.OrderMast;
 import com.example.eRationBackend.model.order.request.AddOrder;
+import com.example.eRationBackend.model.order.request.OrderDataResponse;
+import com.example.eRationBackend.model.order.request.OrderMastResponse;
+import com.example.eRationBackend.model.product.Product;
 import com.example.eRationBackend.model.product.ShopkeeperProduct;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +55,7 @@ public class OrderServiceImpl {
 
         for(AddOrder addOrder:record)
         {
+            Product product = productService.getProductById(addOrder.getPId());
             ShopkeeperProduct shopkeeperProductExist = shopProductDao.getProductByShopAndProdctId(addOrder.getPId(),shopkeeper.getId());
             if(shopkeeperProductExist==null)
                 continue;
@@ -62,6 +66,7 @@ public class OrderServiceImpl {
 
             //create order data list
             OrderData orderData = new OrderData(addOrder);
+            //orderData.setImg(product.getImg());
             orderDataList.add(orderData);
 
 
@@ -86,7 +91,29 @@ public class OrderServiceImpl {
         return orderMastDao.getOrderByCid(id);
     }
 
-    public OrderMast getOrderByid(Long id) {
-        return orderMastDao.getOrderById(id);
+    public OrderMastResponse getOrderByid(Long id) throws Exception {
+        OrderMast orderMastExist = orderMastDao.getOrderById(id);
+        if(orderMastExist==null)
+            throw new Exception("no record found");
+
+        OrderMastResponse orderMastResponse = new OrderMastResponse(orderMastExist);
+        List<OrderDataResponse> orderDataResponseList = new ArrayList<>();
+
+        for(OrderData orderData:orderMastExist.getOrderDataList())
+        {
+            Product product = productService.getProductById(orderData.getPId());
+
+            OrderDataResponse orderDataResponse = new OrderDataResponse(orderData,product);
+            orderDataResponseList.add(orderDataResponse);
+        }
+        orderMastResponse.setOrderDataList(orderDataResponseList);
+
+        return orderMastResponse;
+
+        //return orderMastDao.getOrderById(id);
+    }
+
+    public List<OrderMast> getAllOrder() {
+        return orderMastDao.getAllOrder();
     }
 }

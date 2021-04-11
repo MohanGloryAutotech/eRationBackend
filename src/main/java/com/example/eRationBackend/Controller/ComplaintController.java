@@ -61,6 +61,27 @@ public class ComplaintController extends ControllerConfig {
 
         return response;
     }
+    @GetMapping("/complain/getComplain/all")
+    public GeneralResponse<List<ComplainResponse>> getAllComplain()
+    {
+        GeneralResponse<List<ComplainResponse>> response=null;
+        try {
+
+
+
+            List<ComplainResponse> complaintList =  complainService.getAllComplaint();
+            if(!complaintList.isEmpty())
+                response=new GeneralResponse<>(complaintList,"Complain fetched successfully",true,System.currentTimeMillis(), HttpStatus.CREATED);
+            else
+                response=new GeneralResponse<>(complaintList,"data not found",false,System.currentTimeMillis(), HttpStatus.CREATED);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            response=new GeneralResponse<>(null,e.getMessage(),false,System.currentTimeMillis(), HttpStatus.BAD_REQUEST);
+        }
+
+        return response;
+    }
     @GetMapping("/complain/getComplainBy/{id}")
     public GeneralResponse<ComplainResponse> getComplainById(@PathVariable(name = "id") Long id)
     {
