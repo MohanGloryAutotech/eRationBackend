@@ -23,7 +23,7 @@ public class OrderData {
     Long controlId;
     Long pId;
     Double qty;
-    String img;
+
 
     public OrderData(AddOrder addOrder) {
         this.pId=addOrder.getPId();
