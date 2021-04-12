@@ -61,7 +61,7 @@ public class OrderServiceImpl {
                 continue;
 
             //count the amt
-            amt +=shopkeeperProductExist.getPrice();
+            amt +=shopkeeperProductExist.getPrice()* addOrder.getQty();
 
 
             //create order data list
