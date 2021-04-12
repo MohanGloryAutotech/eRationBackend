@@ -17,4 +17,10 @@ public class ComplainResponse extends Complaint {
         super(complaint);
         this.empName = empName;
     }
+    public ComplainResponse(Complaint complaint,String empName,String empEmail) {
+        super(complaint);
+        this.empName = empName;
+        this.empEmail = empEmail;
+    }
+
 }
