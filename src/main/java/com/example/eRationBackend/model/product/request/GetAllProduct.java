@@ -16,7 +16,7 @@ public class GetAllProduct {
     String pname;
     Double price;
     Double qty;
-    String img;
+    byte[] img;
     Long shopId;
 
     public GetAllProduct(ShopkeeperProduct shopkeeperProduct, Product product) {

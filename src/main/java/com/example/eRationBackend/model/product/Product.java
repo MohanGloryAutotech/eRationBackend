@@ -20,6 +20,6 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
     String productName;
-    String img;
+    byte[] img;
 
 }
