@@ -50,6 +50,7 @@ public class ProductController extends ControllerConfig {
                 throw new Exception("no product found");
             }
             response=new GeneralResponse<>(list,"Product fetched successfully",true,System.currentTimeMillis(), HttpStatus.CREATED);
+
         }catch (Exception e)
         {
             response=new GeneralResponse<>(null,e.getMessage(),false,System.currentTimeMillis(), HttpStatus.BAD_REQUEST);

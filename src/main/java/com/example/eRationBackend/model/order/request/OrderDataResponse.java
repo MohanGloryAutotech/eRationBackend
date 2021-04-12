@@ -17,7 +17,7 @@ public class OrderDataResponse {
     Long pId;
     Double qty;
     String productName;
-    String img;
+    byte[] img;
 
 
     public OrderDataResponse(OrderData orderData, Product product) {
