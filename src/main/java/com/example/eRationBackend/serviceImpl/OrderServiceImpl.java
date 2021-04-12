@@ -43,7 +43,7 @@ public class OrderServiceImpl {
     @Autowired
     CustomerDao customerDao;
 
-    public void addOrder(List<AddOrder> record) {
+    public void addOrder(List<AddOrder> record) throws Exception {
 
         List<ShopkeeperProduct> shopkeeperProductList = new ArrayList<>();
 
@@ -63,6 +63,8 @@ public class OrderServiceImpl {
             //count the amt
             amt +=shopkeeperProductExist.getPrice()* addOrder.getQty();
 
+            if(addOrder.getQty() > shopkeeperProductExist.getQty())
+                throw new Exception("Available quantity is only :"+shopkeeperProductExist.getQty());
 
             //create order data list
             OrderData orderData = new OrderData(addOrder);
