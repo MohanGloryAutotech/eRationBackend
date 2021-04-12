@@ -24,7 +24,7 @@ public class Complaint {
     Long cId;
     Date createdDate;
     @Column(columnDefinition = "boolean default false")
-    Long status;
+    Boolean status;
     Long empId;
 
     public Complaint(Complaint complaint) {

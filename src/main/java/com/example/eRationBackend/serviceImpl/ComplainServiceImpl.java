@@ -40,6 +40,7 @@ public class ComplainServiceImpl {
             throw new Exception("no shopkeeper exist");
 
         record.setEmpId(employeeExist.getId());
+        record.setStatus(false);
         complaintDao.save(record);
 
         //update the employee count to +1
