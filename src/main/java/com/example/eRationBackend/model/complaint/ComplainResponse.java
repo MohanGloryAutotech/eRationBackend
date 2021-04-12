@@ -11,6 +11,7 @@ import lombok.Setter;
 @Setter
 public class ComplainResponse extends Complaint {
     String empName;
+    String empEmail;
 
     public ComplainResponse(Complaint complaint,String empName) {
         super(complaint);

@@ -22,5 +22,6 @@ public class Employee {
     Long stateId;
     @Column(columnDefinition = "integer default 0")
     Long count;
+    String email;
 
 }

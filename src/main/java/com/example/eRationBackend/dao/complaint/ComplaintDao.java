@@ -10,10 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface ComplaintDao extends JpaRepository<Complaint,Long> {
-    @Query("select new com.example.eRationBackend.model.complaint.ComplainResponse(c,(select e.name from Employee e where e.id=c.empId)) from Complaint c where c.cId=:cid")
+    @Query("select new com.example.eRationBackend.model.complaint.ComplainResponse(c,(select e.name from Employee e where e.id=c.empId),(select e.email from Employee e where e.id=c.empId)) from Complaint c where c.cId=:cid")
     List<ComplainResponse> getComplainResponseByCid(Long cid);
 
-    @Query("select new com.example.eRationBackend.model.complaint.ComplainResponse(c,(select e.name from Employee e where e.id=c.empId)) from Complaint c where c.id=:id")
+    @Query("select new com.example.eRationBackend.model.complaint.ComplainResponse(c,(select e.name from Employee e where e.id=c.empId),(select e.email from Employee e where e.id=c.empId)) from Complaint c where c.id=:id")
     ComplainResponse getComplainResponseById(Long id);
 
     @Query("select x from Complaint x where x.id=:id")
@@ -24,6 +24,6 @@ public interface ComplaintDao extends JpaRepository<Complaint,Long> {
     @Query("update Complaint x set x.status=:status where x.id=:id")
     void updateStatusById(Long id, Boolean status);
 
-    @Query("select new com.example.eRationBackend.model.complaint.ComplainResponse(c,(select e.name from Employee e where e.id=c.empId)) from Complaint c")
+    @Query("select new com.example.eRationBackend.model.complaint.ComplainResponse(c,(select e.name from Employee e where e.id=c.empId),(select e.email from Employee e where e.id=c.empId)) from Complaint c")
     List<ComplainResponse> getAllComplaintResponse();
 }
